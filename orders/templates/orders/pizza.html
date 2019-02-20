@@ -1,0 +1,19 @@
+{% extends "orders/base.html" %}
+
+
+    {% block title %}
+        Pizza
+    {% endblock %}
+
+{% block body %}
+    <h1>Pizza {{ pizza_id }}</h1>
+    <ul>
+        <li>
+            flavour: {{ pizza.flavour }}
+        </li>
+        <li>
+            size: {{pizza.size }}
+        </li>
+    </ul>
+    <a href="{% url 'index' %}"> back to index</a>
+{% endblock %}
