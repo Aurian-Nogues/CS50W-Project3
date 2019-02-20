@@ -9,14 +9,14 @@ class Pasta(models.Model):
     def __str__(self):
         return f"{self.id} - {self.description} : {self.price}"
 
-class Categories(models.Model):
+class Pizza(models.Model):
     flavour = models.CharField(max_length=16)
     size = models.CharField(max_length=16)
     toppingType = models.CharField(max_length=32)
+    price = models.FloatField(max_length=8)
 
     def __str__(self):
-        return f"{self.id} - {self.flavour} / {self.size} / {self.toppingType}"
-
+        return f"{self.id} - {self.flavour} / {self.size} / {self.toppingType} / {self.price}"
 
 
       
