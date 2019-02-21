@@ -1,4 +1,7 @@
 from django.db import models
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your models here.
 
@@ -62,6 +65,26 @@ class Platter(models.Model):
 
     def __str__(self):
         return f"{self.description}  / {self.size} / {self.price}"
+
+#create custom registration form extending Django UserCreationForm
+class UserCreationForm(UserCreationForm):
+    email = forms.EmailField(required = True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user=super(UserCreationForm, self).save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
+
+
+
+
+
 
 
       
