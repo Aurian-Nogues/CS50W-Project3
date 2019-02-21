@@ -1,0 +1,20 @@
+{% extends "orders/base0.html" %}
+
+
+    {% block title %}
+        New account
+    {% endblock %}
+
+{% block body %}
+<div class="w3-container">
+    <h1>Create account</h1>
+    <form class="site-form" action="{% url 'create_account' %}" method="post">
+    {{form}}
+    <br/>
+    <input type='submit' value='Create account'>   
+    </form>
+<div class="w3-container">
+{% endblock %}
+
+
+
