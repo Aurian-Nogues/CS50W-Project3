@@ -32,14 +32,6 @@ def logout_view(request):
 
 
 
-
-
-
-
-
-
-
-
 """ def index(request):
     context = {
         "Pastas": Pasta.objects.all()
