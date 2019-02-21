@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Pasta, Pizza
 from django.urls import reverse
 
@@ -31,7 +31,15 @@ def logout_view(request):
     return render(request, "orders/login.html", {"message": "Logged out."})
 
 def createAccount(request):
-    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # log the user in
+            return HttpResponseRedirect(reverse("index"))
+    else:      
+        form = UserCreationForm()
+
     return render(request, "orders/createAccount.html", {'form': form})
 
 

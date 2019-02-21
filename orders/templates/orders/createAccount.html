@@ -9,6 +9,7 @@
 <div class="w3-container">
     <h1>Create account</h1>
     <form class="site-form" action="{% url 'create_account' %}" method="post">
+    {% csrf_token %}
     {{form}}
     <br/>
     <input type='submit' value='Create account'>   
