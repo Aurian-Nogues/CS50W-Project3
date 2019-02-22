@@ -10,9 +10,15 @@ from django.urls import reverse
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
+    pizzas_list = Pizza.objects.all()
+    print(pizzas_list)
+
     context = {
-        "user": request.user
+        "user": request.user,
+        "pizzas": pizzas_list
     }
+
+    
     return render(request, "orders/menu.html", context)
 
 
