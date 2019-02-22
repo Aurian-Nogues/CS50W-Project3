@@ -7,39 +7,115 @@
 
 {% block body %}
     <h1>Menu</h1>
-
-    <ul>
-        {% for pizza in pizzas %}
-        <li> {{pizza.size}}</li>
-
-        {% endfor %}
-
-
-    </ul>
-    <table class="table table-hover" id ="pizzas-menu">
+    
+    <div class="pizza-table">
+        <table class="table table-hover" id ="pizzas-menu">
             <thead>
-              <tr>
+                <tr>
                 <th scope="col">#</th>
                 <th scope="col">Flavour</th>
                 <th scope="col">Size</th>
                 <th scope="col">Toppings</th>
-                <th scope="col">price</th>
-              </tr>
+                <th scope="col">Price</th>
+                </tr>
             </thead>
             <tbody>
 
             {% for pizza in pizzas %}
-              <tr>
+                <tr>
                 <td>{{pizza.id}}</td>
                 <td>{{pizza.flavour}}</td>
                 <td>{{pizza.size}}</td>
                 <td>{{pizza.topping}}</td>
                 <td>{{pizza.price}}</td>
-              </tr>
+                </tr>
             {% endfor %}
             
             </tbody>
-          </table>
+        </table>
+    </div>
+    <br/>
+
+    <div class="other-table">
+            <table class="table table-hover" id ="pastas-menu">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Pasta</th>
+                    <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                {% for pasta in pastas %}
+                    <tr>
+                    <td>{{pasta.id}}</td>
+                    <td>{{pasta.description}}</td>
+                    <td>{{pasta.price}}</td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+        </div>
+        <br/>
+
+    <div class="other-table">
+            <table class="table table-hover" id ="salads-menu">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Salad</th>
+                    <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                {% for salad in salads %}
+                    <tr>
+                    <td>{{salad.id}}</td>
+                    <td>{{salad.description}}</td>
+                    <td>{{salad.price}}</td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+        </div>
+        <br/>
+
+        <div id="platters-table">
+                <table class="table table-hover" id ="platters-menu">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Dinner platter</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                    {% for platter in platters %}
+                        <tr>
+                        <td>{{platter.id}}</td>
+                        <td>{{platter.description}}</td>
+                        <td>{{platter.size}}</td>
+                        <td>{{platter.price}}</td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+            <br/>
+
+
+
+
+
+
+
 
 
 {% endblock %}

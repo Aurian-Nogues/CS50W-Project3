@@ -42,6 +42,14 @@ class Pizza(models.Model):
         return f"{self.id} - {self.flavour} / {self.size} / {self.topping} / {self.price}"
 
 
+class Subs(models.Model):
+    description = models.CharField(max_length=64)
+    price = models.FloatField(max_length=8)
+
+    def __str__(self):
+        return f"{self.description} / {self.price}"
+
+
 class Pasta(models.Model):
     description = models.CharField(max_length=64)
     price = models.FloatField(max_length=8)
@@ -71,7 +79,7 @@ class UserCreationForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField(required = True)
-    
+
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
