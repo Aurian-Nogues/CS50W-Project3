@@ -6,15 +6,19 @@
     {% endblock %}
 
 {% block body %}
-<div class="w3-container">
-    <h1>Create account</h1>
-    <form class="site-form" action="{% url 'create_account' %}" method="post">
-    {% csrf_token %}
-    {{form}}
-    <br/>
-    <input type='submit' value='Create account'>   
-    </form>
-<div class="w3-container">
+
+    <div id="registration">
+
+        <form class="site-form" action="{% url 'create_account' %}" method="post">
+        {% csrf_token %}
+        <h1> Create account</h1>
+            <table id="register-form">
+                {{form}}
+            </table>
+        <br/>
+        <input id="create-user-button" type='submit' value='Create account'>   
+        </form>
+    </div>
 {% endblock %}
 
 

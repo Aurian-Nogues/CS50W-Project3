@@ -68,11 +68,13 @@ class Platter(models.Model):
 
 #create custom registration form extending Django UserCreationForm
 class UserCreationForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
     email = forms.EmailField(required = True)
-
+    
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
     def save(self, commit=True):
         user=super(UserCreationForm, self).save(commit=False)
