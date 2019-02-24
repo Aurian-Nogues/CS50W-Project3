@@ -41,13 +41,13 @@ class Sicilian_pizza(models.Model):
     def __str__(self):
         return f"{self.id} / {self.size} / {self.topping} / {self.price}"
 
-class Subs(models.Model):
+class Sub(models.Model):
     description = models.CharField(max_length=64)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='sub_size')
     price = models.FloatField(max_length=8)
 
     def __str__(self):
-        return f"{self.description} / {self.price}"
-
+        return f"{self.description}  / {self.size} / {self.price}"
 
 class Pasta(models.Model):
     description = models.CharField(max_length=64)

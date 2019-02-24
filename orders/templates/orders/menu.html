@@ -11,11 +11,10 @@
 
 
     <div class="pizza-table">
-        <table class="table table-hover" id ="pizzas-menu">
+        <table class="table table-hover" id ="Standard-pizzas-menu">
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Flavour</th>
                 <th scope="col">Size</th>
                 <th scope="col">Toppings</th>
                 <th scope="col">Price</th>
@@ -24,10 +23,9 @@
             </thead>
             <tbody>
 
-            {% for pizza in pizzas %}
+            {% for pizza in Standard_pizzas %}
                 <tr>
                 <td>{{pizza.id}}</td>
-                <td>{{pizza.flavour}}</td>
                 <td>{{pizza.size}}</td>
                 <td>{{pizza.topping}}</td>
                 <td>{{pizza.price}}</td>
@@ -40,6 +38,62 @@
     </div>
     <br/>
 
+    <div class="pizza-table">
+            <table class="table table-hover" id ="Sicilian-pizzas-menu">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Toppings</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Add</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                {% for pizza in Sicilian_pizzas %}
+                    <tr>
+                    <td>{{pizza.id}}</td>
+                    <td>{{pizza.size}}</td>
+                    <td>{{pizza.topping}}</td>
+                    <td>{{pizza.price}}</td>
+                    <td><button type="button" class="btn btn-success">Add</button></td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+        </div>
+        <br/>
+
+
+        <div class="other-table">
+                <table class="table table-hover" id ="subs-menu">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Sub</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Add</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                    {% for sub in subs %}
+                        <tr>
+                        <td>{{sub.id}}</td>
+                        <td>{{sub.description}}</td>
+                        <td>{{sub.price}}</td>
+                        <td><button type="button" class="btn btn-success">Add</button></td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+            <br/>
+
+    
     <div class="other-table">
             <table class="table table-hover" id ="pastas-menu">
                 <thead>
