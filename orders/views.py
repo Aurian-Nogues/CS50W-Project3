@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .models import Pasta, Pizza, Salad, Platter
+from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter
 from.models import UserCreationForm
 from django.urls import reverse
 
@@ -10,8 +10,7 @@ from django.urls import reverse
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
-    pizzas_list = Pizza.objects.all()
-    pizza_table = Pizza.objects.all()
+    pizzas_list = Sicilian.objects.all()
     pastas_list = Pasta.objects.all()
     salads_list = Salad.objects.all()
     platters_list = Platter.objects.all()

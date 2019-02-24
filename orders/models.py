@@ -5,13 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your models here.
 
-class Flavour(models.Model):
-    flavour = models.CharField(max_length=16)
-
-    def __str__(self):
-        return f"{self.flavour}"
-
-
 class Size(models.Model):
     size = models.CharField(max_length=16)
 
@@ -32,15 +25,21 @@ class Topping(models.Model):
         return f"{self.topping}"
 
 
-class Pizza(models.Model):
-    flavour = models.ForeignKey(Flavour, on_delete=models.CASCADE, related_name='pizza_flavour')
-    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='pizza_size')
-    topping = models.ForeignKey(Topping_type, on_delete=models.CASCADE, related_name='pizza_toppingType')
+class Standard_pizza(models.Model):
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    topping = models.ForeignKey(Topping_type, on_delete=models.CASCADE)
     price = models.FloatField(max_length=8)
 
     def __str__(self):
-        return f"{self.id} - {self.flavour} / {self.size} / {self.topping} / {self.price}"
+        return f"{self.id} / {self.size} / {self.topping} / {self.price}"
 
+class Sicilian_pizza(models.Model):
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    topping = models.ForeignKey(Topping_type, on_delete=models.CASCADE)
+    price = models.FloatField(max_length=8)
+
+    def __str__(self):
+        return f"{self.id} / {self.size} / {self.topping} / {self.price}"
 
 class Subs(models.Model):
     description = models.CharField(max_length=64)

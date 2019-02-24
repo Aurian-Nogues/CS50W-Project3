@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Flavour, Size, Topping_type, Pizza, Pasta, Salad, Platter, Topping
+from .models import Size, Topping_type, Standard_pizza, Sicilian_pizza, Pasta, Salad, Platter, Topping
 
 # Register your models here.
-admin.site.register(Flavour)
 admin.site.register(Size)
 admin.site.register(Topping_type)
-admin.site.register(Pizza)
+admin.site.register(Sicilian_pizza)
+admin.site.register(Standard_pizza)
 admin.site.register(Pasta)
 admin.site.register(Salad)
 admin.site.register(Platter)
