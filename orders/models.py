@@ -5,12 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your models here.
 
-class Size(models.Model):
-    size = models.CharField(max_length=16)
-
-    def __str__(self):
-        return f"{self.size}"
-
 
 class Topping_type(models.Model):
     toppingType = models.CharField(max_length=32)
@@ -26,28 +20,30 @@ class Topping(models.Model):
 
 
 class Standard_pizza(models.Model):
-    size = models.ForeignKey(Size, on_delete=models.CASCADE)
     topping = models.ForeignKey(Topping_type, on_delete=models.CASCADE)
-    price = models.FloatField(max_length=8)
+    price_small = models.DecimalField(max_digits=6, decimal_places=2)
+    price_large = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return f"{self.id} / {self.size} / {self.topping} / {self.price}"
+        return f"{self.id} / {self.topping} / {self.price_small} / {self.price_large}"
 
 class Sicilian_pizza(models.Model):
-    size = models.ForeignKey(Size, on_delete=models.CASCADE)
     topping = models.ForeignKey(Topping_type, on_delete=models.CASCADE)
-    price = models.FloatField(max_length=8)
+    price_small = models.DecimalField(max_digits=6, decimal_places=2)
+    price_large = models.DecimalField(max_digits=6, decimal_places=2)
+
 
     def __str__(self):
-        return f"{self.id} / {self.size} / {self.topping} / {self.price}"
+        return f"{self.id} / {self.topping} / {self.price_small} / {self.price_large}"
+
 
 class Sub(models.Model):
     description = models.CharField(max_length=64)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='sub_size')
-    price = models.FloatField(max_length=8)
+    price_small = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    price_large = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.description}  / {self.size} / {self.price}"
+        return f"{self.description} / {self.price_small} / {self.price_large}"
 
 class Pasta(models.Model):
     description = models.CharField(max_length=64)
@@ -67,7 +63,6 @@ class Salad(models.Model):
 
 class Platter(models.Model):
     description = models.CharField(max_length=64)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='platter_size')
     price = models.FloatField(max_length=8)
 
     def __str__(self):
@@ -89,8 +84,6 @@ class UserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
-
 
 
 

@@ -10,24 +10,8 @@ from django.urls import reverse
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
-    Standard_pizza_list = Standard_pizza.objects.all()  
-    Sicilian_pizza_list = Sicilian_pizza.objects.all()
-    pastas_list = Pasta.objects.all()
-    salads_list = Salad.objects.all()
-    platters_list = Platter.objects.all()
-    sub_list= Sub.objects.all()
-
-    context = {
-        "user": request.user,
-        "Standard_pizzas": Standard_pizza_list,
-        "Sicilian_pizzas": Sicilian_pizza_list,
-        "pastas":pastas_list,
-        "salads":salads_list,
-        "platters":platters_list,
-        "subs":sub_list,
-    }
     
-    return render(request, "orders/menu.html", context)
+    return HttpResponseRedirect(reverse("pizzas"))
 
 
 def login_view(request):
@@ -55,6 +39,29 @@ def createAccount(request):
         form = UserCreationForm()
 
     return render(request, "orders/createAccount.html", {'form': form})
+
+def pizzas(request):
+    Standard_pizza_list = Standard_pizza.objects.all()  
+    Sicilian_pizza_list = Sicilian_pizza.objects.all()
+
+    context = {
+        "user": request.user,
+        "Standard_pizzas": Standard_pizza_list,
+        "Sicilian_pizzas": Sicilian_pizza_list,
+    }
+
+    return render(request, "orders/pizzas.html", context)
+
+
+def subs(request):
+    Subs = Sub.objects.all()
+
+    context = {
+        "user": request.user,
+        "Subs": Subs,
+    }    
+
+    return render(request, "orders/subs.html", context)
 
 
 
