@@ -13,6 +13,9 @@ urlpatterns = [
     path("create_account", views.createAccount, name="create_account"),
     path("pizzas", views.pizzas, name="pizzas"),
     path("subs", views.subs, name="subs"),
+    path("pastas", views.pastas, name="pastas"),
+    path("salads", views.salads, name="salads"),
+    path("platters", views.platters, name="platters"),
 
 ]
 

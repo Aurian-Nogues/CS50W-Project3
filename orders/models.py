@@ -63,10 +63,11 @@ class Salad(models.Model):
 
 class Platter(models.Model):
     description = models.CharField(max_length=64)
-    price = models.FloatField(max_length=8)
+    price_small = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    price_large = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.description}  / {self.size} / {self.price}"
+        return f"{self.description} / {self.price_small} / {self.price_large}"
 
 #create custom registration form extending Django UserCreationForm
 class UserCreationForm(UserCreationForm):

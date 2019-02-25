@@ -63,6 +63,35 @@ def subs(request):
 
     return render(request, "orders/subs.html", context)
 
+def pastas(request):
+    Pastas = Pasta.objects.all()
+
+    context = {
+        "user": request.user,
+        "Pastas": Pastas,
+    }    
+
+    return render(request, "orders/pastas.html", context)
+
+def salads(request):
+    Salads = Salad.objects.all()
+
+    context = {
+        "user": request.user,
+        "Salads": Salads,
+    }    
+    
+    return render(request, "orders/salads.html", context)
+
+def platters(request):
+    Platters = Platter.objects.all()
+
+    context = {
+        "user": request.user,
+        "Platters": Platters,
+    }    
+    return render(request, "orders/platters.html", context)
+
 
 
 
