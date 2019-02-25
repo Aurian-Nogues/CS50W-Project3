@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub
+from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub, Topping
 from.models import UserCreationForm
 from django.urls import reverse
 
@@ -10,7 +10,6 @@ from django.urls import reverse
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
-    
     return HttpResponseRedirect(reverse("pizzas"))
 
 
@@ -43,54 +42,54 @@ def createAccount(request):
 def pizzas(request):
     Standard_pizza_list = Standard_pizza.objects.all()  
     Sicilian_pizza_list = Sicilian_pizza.objects.all()
-
     context = {
         "user": request.user,
         "Standard_pizzas": Standard_pizza_list,
         "Sicilian_pizzas": Sicilian_pizza_list,
     }
-
     return render(request, "orders/pizzas.html", context)
 
 
 def subs(request):
     Subs = Sub.objects.all()
-
     context = {
         "user": request.user,
         "Subs": Subs,
     }    
-
     return render(request, "orders/subs.html", context)
 
 def pastas(request):
     Pastas = Pasta.objects.all()
-
     context = {
         "user": request.user,
         "Pastas": Pastas,
     }    
-
     return render(request, "orders/pastas.html", context)
 
 def salads(request):
     Salads = Salad.objects.all()
-
     context = {
         "user": request.user,
         "Salads": Salads,
     }    
-    
     return render(request, "orders/salads.html", context)
 
 def platters(request):
     Platters = Platter.objects.all()
-
     context = {
         "user": request.user,
         "Platters": Platters,
     }    
     return render(request, "orders/platters.html", context)
+
+def pizza_toppings(request):
+    Toppings = Topping.objects.all()
+    context = {
+    "user": request.user,
+    "Toppings": Toppings,
+    }    
+    return render(request, "orders/toppings.html", context)
+
 
 
 
