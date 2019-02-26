@@ -19,8 +19,6 @@
 }
 
 #create-user-button{
-/*     margin-left: auto;
-    margin-right:0px; */
     align-self: right;
 }
 
@@ -32,7 +30,7 @@
     border-width: 1px;
     padding: 20px;
 
-    position:absolute; /*it can be fixed too*/
+    position:absolute;
     left:0; right:0;
     top:150px; bottom:0;
     margin:auto;
@@ -43,7 +41,7 @@
     overflow:auto;
     
 }
-
+/* 
 .other-table{
     width:40%;
     margin-left: 30px;
@@ -56,4 +54,8 @@
 #platters-table{
     margin-left: 30px;
     width:50%;
+} */
+
+a {
+    color:red;
 }
