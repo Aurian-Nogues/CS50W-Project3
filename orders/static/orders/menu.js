@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
-
 //adds a topping to the topping list
 function add_topping(){
     //get how many toppings are left to pick
@@ -92,11 +90,6 @@ function place_pizza_order(){
 
     alert("sending order");
 }
-
-
-
-
-
 
 function add_pizza(){
     var price = $(this).closest('td').prev('td');

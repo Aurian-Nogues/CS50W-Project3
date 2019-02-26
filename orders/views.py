@@ -10,7 +10,13 @@ from django.urls import reverse
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
-    return HttpResponseRedirect(reverse("pizzas"))
+    return HttpResponseRedirect(reverse("home"))
+
+def home(request):
+    context = {
+
+    }
+    return render(request, "orders/home.html", context)
 
 
 def login_view(request):
