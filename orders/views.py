@@ -84,9 +84,12 @@ def platters(request):
 
 def pizza_toppings(request,description, topping, price):
     Toppings = Topping.objects.all()
-    print(topping, price)
+    
     context = {
     "user": request.user,
+    "description": description,
+    "topping": topping,
+    "price": price,
     "Toppings": Toppings,
     }    
     return render(request, "orders/toppings.html", context)
