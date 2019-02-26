@@ -20,21 +20,23 @@ class Topping(models.Model):
 
 
 class Standard_pizza(models.Model):
+    description = models.CharField(max_length=100)
     topping = models.ForeignKey(Topping_type, on_delete=models.CASCADE)
     price_small = models.DecimalField(max_digits=6, decimal_places=2)
     price_large = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return f"{self.id} / {self.topping} / {self.price_small} / {self.price_large}"
+        return f"{self.description} /{self.topping} /{self.price_small} / {self.price_large}"
 
 class Sicilian_pizza(models.Model):
+    description = models.CharField(max_length=100)
     topping = models.ForeignKey(Topping_type, on_delete=models.CASCADE)
     price_small = models.DecimalField(max_digits=6, decimal_places=2)
     price_large = models.DecimalField(max_digits=6, decimal_places=2)
 
 
     def __str__(self):
-        return f"{self.id} / {self.topping} / {self.price_small} / {self.price_large}"
+        return f"{self.description} /{self.topping} /{self.price_small} / {self.price_large}"
 
 
 class Sub(models.Model):

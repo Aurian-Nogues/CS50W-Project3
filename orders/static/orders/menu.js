@@ -19,5 +19,6 @@ function add_pizza(){
     console.log(price);
     console.log(topping);
     console.log(size);
+    alert("here");
 }
 
