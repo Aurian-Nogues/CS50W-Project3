@@ -119,6 +119,7 @@ def pizza_toppings(request,description, topping, price):
 def add_pizza(request):
     if request.is_ajax() and request.POST:
         data = {'message': "%s added" % request.POST.get('item')}
+
         return HttpResponse(json.dumps(data), content_type='application/json')
 
     else:
@@ -126,18 +127,3 @@ def add_pizza(request):
 
 
 
-""" def index(request):
-    context = {
-        "Pastas": Pasta.objects.all()
-    }
-    return render(request, "orders/index.html", context)
-
-def pizza(request, pizza_id):
-    try:
-        pizza = Pizza.objects.get(pk=pizza_id)
-    except Pizza.DoesNotExist:
-        raise Http404("Pizza does not exist.")
-    context = {
-        "pizza": pizza
-    }
-    return render(request, "orders/pizza.html", context) """

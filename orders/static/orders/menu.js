@@ -122,34 +122,25 @@ function place_pizza_order(){
         return false
     }
 
-    test= "test";
+    //define variables to be passed
+    pizza_type = document.querySelector('#pizza_type').innerHTML + ' ';
+    pizza_topping = document.querySelector('#toppings_description').innerHTML;
+    item = pizza_type + pizza_topping;
+    price = document.querySelector('#pizza_price').innerHTML;
+    toppings = document.querySelector('#toppings_selected').innerHTML;
+
+    //make ajax post request
     $.ajax({
         type: "POST",
         url: "/add_pizza",
         dataType: "json",
-        data: {"item": test},
+        data: {"item": item, "price": price, "toppings":toppings},
+        //confirmation message when Post request successful
         success: function(data) {
             alert(data.message);
         }
     });
+    //redirect to next page
+    window.location.pathname = 'home';
 }
-
-/* function add_pizza(){
-    var price = $(this).closest('td').prev('td');
-    var topping = $(price).closest('td').prev('td');
-    var size = $(topping).closest('td').prev('td');
-
-    type= "standard pizza"
-    price = price.text();
-    price = parseFloat (price);
-    topping = topping.text();
-    size = size.text();
-
-    console.log(type);
-    console.log(price);
-    console.log(topping);
-    console.log(size);
-    alert("here");
-} */
-
 
