@@ -18,13 +18,6 @@ urlpatterns = [
     path("salads", views.salads, name="salads"),
     path("platters", views.platters, name="platters"),
     path("toppings/<str:description>/<str:topping>/<str:price>", views.pizza_toppings, name="toppings"),
+    path("add_pizza", views.add_pizza, name="add_pizza"),
 ]
 
-
-
-""" urlpatterns = [
-    path("", views.index, name="index"),
-    path("<int:pizza_id>", views.pizza, name="pizza")
-
-]
- """

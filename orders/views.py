@@ -1,4 +1,5 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub, Topping
@@ -104,8 +105,6 @@ def pizza_toppings(request,description, topping, price):
     if topping == "Special":
         counter=5
 
-        
-    
     context = {
     "user": request.user,
     "counter": counter,
@@ -116,7 +115,14 @@ def pizza_toppings(request,description, topping, price):
     }    
     return render(request, "orders/toppings.html", context)
 
+#Ajax request handler to add pizza to basket
+def add_pizza(request):
+    if request.is_ajax() and request.POST:
+        data = {'message': "%s added" % request.POST.get('item')}
+        return HttpResponse(json.dumps(data), content_type='application/json')
 
+    else:
+        raise Http404
 
 
 

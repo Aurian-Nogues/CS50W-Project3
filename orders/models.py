@@ -101,6 +101,8 @@ class Orders_list(models.Model):
 
 
 
+
+
 #create custom registration form extending Django UserCreationForm
 class UserCreationForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)

@@ -6,6 +6,40 @@ document.addEventListener('DOMContentLoaded', () => {
     $(document).on("click","#reset_toppings",reset_toppings);
     $(document).on("click","#place_pizza_order",place_pizza_order);
 
+
+
+        // CSRF code
+        function getCookie(name) {
+            var cookieValue = null;
+            var i = 0;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (i; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+    
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        }); 
+
 });
 
 //adds a topping to the topping list
@@ -88,10 +122,19 @@ function place_pizza_order(){
         return false
     }
 
-    alert("sending order");
+    test= "test";
+    $.ajax({
+        type: "POST",
+        url: "/add_pizza",
+        dataType: "json",
+        data: {"item": test},
+        success: function(data) {
+            alert(data.message);
+        }
+    });
 }
 
-function add_pizza(){
+/* function add_pizza(){
     var price = $(this).closest('td').prev('td');
     var topping = $(price).closest('td').prev('td');
     var size = $(topping).closest('td').prev('td');
@@ -107,5 +150,6 @@ function add_pizza(){
     console.log(topping);
     console.log(size);
     alert("here");
-}
+} */
+
 
