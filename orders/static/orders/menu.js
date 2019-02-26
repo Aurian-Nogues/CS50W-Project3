@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function add_topping(){
-
-    
     counter = document.querySelector('#toppings_counter').innerHTML;
     if(counter > 0){
 

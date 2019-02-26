@@ -85,8 +85,24 @@ def platters(request):
 def pizza_toppings(request,description, topping, price):
     Toppings = Topping.objects.all()
     
+
+    #test topping allowance
+    if topping == "Cheese":
+        counter=0
+    if topping == "1 topping":
+        counter=1
+    if topping == "2 toppings":
+        counter=2
+    if topping == "3 toppings":
+        counter=3
+    if topping == "Special":
+        counter=5
+
+        
+    
     context = {
     "user": request.user,
+    "counter": counter,
     "description": description,
     "topping": topping,
     "price": price,
