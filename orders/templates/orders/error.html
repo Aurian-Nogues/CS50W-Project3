@@ -1,0 +1,20 @@
+{% extends "orders/base1.html" %}
+
+{% block title %}
+    Error
+{% endblock %}
+
+
+
+{% block body %}
+
+    <div class="menu-table">
+        <h1>{{ message }}</h1>
+
+        <hr>
+
+        <a href="{% url 'home' %}">Return to homepage.</a>
+  
+    </div>
+
+{% endblock %}

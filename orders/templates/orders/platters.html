@@ -6,9 +6,6 @@
 
 
 {% block body %}
-    
-
-<h1>{{ request.get_full_path }}</h1>
     <div class="menu-table">
         <h1>Dinner platters</h1>
         <table class="table table-hover">
@@ -17,7 +14,6 @@
                 <th scope="col">Platter</th>
                 <th scope="col">Small</th>
                 <th scope="col">Large</th>
-                <th scope="col">Add</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,16 +21,12 @@
             {% for platter in Platters %}
                 <tr>
                 <td>{{platter.description}}</td>
-                <td>{{platter.price_small}}</td>
-                <td>{{platter.price_large}}</td>
-                <td><button type="button" class="btn btn-success pizza-button">Add</button></td>
+                <td><a href="{% url 'add_platter' platter.description 'small' platter.price_small %}">{{platter.price_small}}</a></td>
+                <td><a href="{% url 'add_platter' platter.description 'large' platter.price_large %}">{{platter.price_large}}</a></td>
                 </tr>
             {% endfor %}
             
             </tbody>
         </table>
     </div>
-
-
-
 {% endblock %}

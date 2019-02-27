@@ -237,3 +237,92 @@ def add_pasta_salad(request, description, price):
     context = {
     }
     return HttpResponseRedirect(reverse("home"))
+
+def add_platter(request, description,size, price):
+    #import global variable to get order number
+    global global_order_number
+
+    user=request.user
+    item = size + " " + description
+
+    #check if user has open order and get order number. If not create one
+    try:
+        open_order = Orders_tracking.objects.all().get(user=user, status="open")
+    except ObjectDoesNotExist:
+        print("no open  for user, creating a new order number")
+        #create an open order and increase global order number by 1
+        global_order_number = global_order_number + 1
+        order_number = global_order_number
+        entry = Orders_tracking(user=user, order_number=order_number, status="open")
+        entry.save()
+
+    #get order number from open order
+    open_order = Orders_tracking.objects.all().get(user=user, status="open")
+    order_number = open_order.order_number
+    print("got order number from open order")
+
+    #add new order to order_list
+    entry=Orders_list(order_number=order_number, item=item, price=price)
+    entry.save()
+
+    context = {
+    }
+    return HttpResponseRedirect(reverse("home"))
+
+
+def cart(request):
+    user=request.user
+
+    #test if user has an open order
+    try:
+        open_order = Orders_tracking.objects.all().get(user=user, status="open")
+    except ObjectDoesNotExist:
+        return render(request, "orders/error.html", {"message": "No open order."})
+
+    #get open order number
+    open_order = Orders_tracking.objects.all().get(user=user, status="open")
+    order_number = open_order.order_number
+
+    #test if user has items in open order
+    try:
+        orders = Orders_list.objects.all().filter(order_number=order_number)
+    except ObjectDoesNotExist:
+        return render(request, "orders/error.html", {"message": "No items in order."})
+    
+
+    count = orders.count()
+    if count == 0:
+        return render(request, "orders/error.html", {"message": "No items in order."})
+    
+    #if user has an open order and has items in it:
+
+    #calculate total order amount
+    total=0
+    for instance in orders:
+        total += instance.price
+    context = {
+        "Orders": orders,
+        "order_number": order_number,
+        "total_amount": total,
+    }
+    return render(request, "orders/cart.html", context)
+
+#Ajax request handler to remove items from basket
+def delete_item(request):
+
+    if request.is_ajax() and request.POST:
+        item = request.POST.get('item')
+        price = request.POST.get('price')
+        extras = request.POST.get('extras')
+        order_number = request.POST.get('order_number')
+
+        if extras == "None":
+            order = Orders_list.objects.all().get(item=item, order_number=order_number)
+        else:
+            order = Orders_list.objects.all().get(item=item, order_number=order_number, toppings_extras=extras)
+        order.delete()
+
+        return HttpResponse()
+
+    else:
+        raise Http404
