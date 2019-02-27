@@ -25,8 +25,8 @@
             {% for sub in Subs %}
                 <tr>
                 <td>{{sub.description}}</td>
-                <td><a href="{% url 'subs_extras' sub.description sub.price_small %}">{{sub.price_small}}</a></td>
-                <td><a href="{% url 'subs_extras' sub.description sub.price_large %}">{{sub.price_large}}</a></td>
+                <td><a href="{% url 'subs_extras' sub.description 'small' sub.price_small %}">{{sub.price_small}}</a></td>
+                <td><a href="{% url 'subs_extras' sub.description 'large' sub.price_large %}">{{sub.price_large}}</a></td>
                 </tr>
             {% endfor %}
             

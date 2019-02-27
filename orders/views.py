@@ -76,11 +76,12 @@ def subs(request):
     }    
     return render(request, "orders/subs.html", context)
 
-def subs_extras(request, description, price):
+def subs_extras(request, description, size, price):
 
     context = {
         "user": request.user,
         "description": description,
+        "size": size,
         "price": price
     }
 
