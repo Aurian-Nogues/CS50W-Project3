@@ -13,11 +13,9 @@ from django.urls import reverse
 #if there are database entries set variable to last order in DB
 try:
     global_order_number = Orders_tracking.objects.order_by('-id')[0]
-
 except IndexError:
     print("order list is empty, create initial order number")
     global_order_number = 0
-print(global_order_number)
 
 #///////////////////////////////////////////////////////////////////
 
@@ -78,6 +76,17 @@ def subs(request):
     }    
     return render(request, "orders/subs.html", context)
 
+def subs_extras(request, description, price):
+
+    context = {
+        "user": request.user,
+        "description": description,
+        "price": price
+    }
+
+    return render(request, "orders/subs_extras.html", context)
+
+
 def pastas(request):
     Pastas = Pasta.objects.all()
     context = {
@@ -130,10 +139,10 @@ def pizza_toppings(request,description, topping, price):
 
 #Ajax request handler to add pizza to basket
 def add_pizza(request):
+    #import global variable to get order number
     global global_order_number
 
     if request.is_ajax() and request.POST:
-        data = {'message': "Pizza added"}
 
         user=request.user
 
@@ -144,9 +153,8 @@ def add_pizza(request):
         #check if user has open order and get order number. If not create one
         try:
             open_order = Orders_tracking.objects.all().get(user=user, status="open")
-
         except ObjectDoesNotExist:
-            print("no open order, creating a new order number")
+            print("no open  for user, creating a new order number")
             #create an open order and increase global order number by 1
             global_order_number = global_order_number + 1
             order_number = global_order_number
