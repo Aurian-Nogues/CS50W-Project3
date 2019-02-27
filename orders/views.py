@@ -7,16 +7,19 @@ from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub, 
 from.models import UserCreationForm
 from django.urls import reverse
 
-# Create your views here.
+#//////////////////////Global variables/////////////////////////////
 
 #If thre are no orders, set first order_number to 0
+#if there are database entries set variable to last order in DB
 try:
-    last_order = Orders_tracking.objects.order_by('-id')[0]
+    global_order_number = Orders_tracking.objects.order_by('-id')[0]
+
 except IndexError:
-    print("order list is empty, first order number set to 0")
+    print("order list is empty, create initial order number")
     global_order_number = 0
+print(global_order_number)
 
-
+#///////////////////////////////////////////////////////////////////
 
 def index(request):
     if not request.user.is_authenticated:
@@ -138,16 +141,10 @@ def add_pizza(request):
         toppings = request.POST.get('toppings')
         price = request.POST.get('price')
 
-        print("                      I am Here                 ")
-        print("")
-        print("///////////////////////////////")
-        print(user)
         #check if user has open order and get order number. If not create one
         try:
             open_order = Orders_tracking.objects.all().get(user=user, status="open")
-            print("///////////////////////////////")
 
-            print(open_order)
         except ObjectDoesNotExist:
             print("no open order, creating a new order number")
             #create an open order and increase global order number by 1
@@ -155,11 +152,6 @@ def add_pizza(request):
             order_number = global_order_number
             entry = Orders_tracking(user=user, order_number=order_number, status="open")
             entry.save()
-            print("///////////////////////////////")
-            print("///////////////////////////////")
-            print("No open orders, created one")
-
-
 
         #get order number from open order
         open_order = Orders_tracking.objects.all().get(user=user, status="open")
