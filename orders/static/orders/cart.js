@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     $(document).on("click",".delete-button",delete_item);
+    $(document).on("click","#place_order",place_order);
 
     ////////////////////////////////////////////////////////////////
     //These functions are required to obtain CSRF code and attach it to POST methods
@@ -40,9 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /////////////////////////////////////////////////////////////////
     });
     
-
+//ajax request to delete items form basket
 function delete_item(){
-
     //define variables to be passed
     price = $(this).closest('td').prev('td');
     extras = $(price).closest('td').prev('td');
@@ -64,3 +64,20 @@ function delete_item(){
     location.reload();
 };
     
+function place_order(){
+    total = document.querySelector('#total_amount').innerHTML;
+    message = "Do you want to confirm you order for $" + total + " ?"
+
+    //if customer confirms, move order to confirmed
+    if (confirm(message)) {
+        order_number = document.querySelector('#order_number').innerHTML;
+        //make ajax post request
+        $.ajax({
+        type: "POST",
+        url: "/confirm_order",
+        dataType: "json",
+        data: {"order_number":order_number},
+    });
+    window.location.pathname = 'home';
+    } 
+}

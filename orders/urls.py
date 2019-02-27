@@ -25,6 +25,7 @@ urlpatterns = [
     path("add_pizza", views.add_pizza, name="add_pizza"),
     path("add_sub", views.add_sub, name="add_sub"),
     path("delete_item", views.delete_item, name="delete_item"),
+    path("confirm_order", views.confirm_order, name="confirm_order"),
 
 ]
 

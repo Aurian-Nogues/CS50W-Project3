@@ -12,7 +12,8 @@ from django.urls import reverse
 #If thre are no orders, set first order_number to 0
 #if there are database entries set variable to last order in DB
 try:
-    global_order_number = Orders_tracking.objects.order_by('-id')[0]
+    global_order_number_entry = Orders_tracking.objects.order_by('-id')[0]
+    global_order_number = global_order_number_entry.order_number
 except IndexError:
     print("order list is empty, create initial order number")
     global_order_number = 0
@@ -150,7 +151,7 @@ def add_pizza(request):
         try:
             open_order = Orders_tracking.objects.all().get(user=user, status="open")
         except ObjectDoesNotExist:
-            print("no open  for user, creating a new order number")
+            print("no open order for user, creating a new order number")
             #create an open order and increase global order number by 1
             global_order_number = global_order_number + 1
             order_number = global_order_number
@@ -186,7 +187,7 @@ def add_sub(request):
         try:
             open_order = Orders_tracking.objects.all().get(user=user, status="open")
         except ObjectDoesNotExist:
-            print("no open  for user, creating a new order number")
+            print("no open order for user, creating a new order number")
             #create an open order and increase global order number by 1
             global_order_number = global_order_number + 1
             order_number = global_order_number
@@ -218,9 +219,9 @@ def add_pasta_salad(request, description, price):
     try:
         open_order = Orders_tracking.objects.all().get(user=user, status="open")
     except ObjectDoesNotExist:
-        print("no open  for user, creating a new order number")
+        print("no open order for user, creating a new order number")
         #create an open order and increase global order number by 1
-        global_order_number = global_order_number + 1
+        global_order_number +=1
         order_number = global_order_number
         entry = Orders_tracking(user=user, order_number=order_number, status="open")
         entry.save()
@@ -251,7 +252,7 @@ def add_platter(request, description,size, price):
     except ObjectDoesNotExist:
         print("no open  for user, creating a new order number")
         #create an open order and increase global order number by 1
-        global_order_number = global_order_number + 1
+        global_order_number +=1
         order_number = global_order_number
         entry = Orders_tracking(user=user, order_number=order_number, status="open")
         entry.save()
@@ -309,7 +310,6 @@ def cart(request):
 
 #Ajax request handler to remove items from basket
 def delete_item(request):
-
     if request.is_ajax() and request.POST:
         item = request.POST.get('item')
         price = request.POST.get('price')
@@ -324,5 +324,24 @@ def delete_item(request):
 
         return HttpResponse()
 
+    else:
+        raise Http404
+
+#Ajax request handler to remove items from basket
+def confirm_order(request):
+    if request.is_ajax() and request.POST:
+        
+        order_number = request.POST.get('order_number')
+        try:
+            order = Orders_tracking.objects.all().get(order_number=order_number)
+        except ObjectDoesNotExist:
+            return render(request, "orders/error.html", {"message": "Order does not exist."})
+
+        print(order)
+        order.status = "Confirmed"
+        order.save()
+        print(order)
+        return HttpResponse()
+    
     else:
         raise Http404
