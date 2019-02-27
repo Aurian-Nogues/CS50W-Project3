@@ -1,5 +1,6 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 import json
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub, Topping, Orders_list, Orders_tracking
@@ -137,22 +138,36 @@ def add_pizza(request):
         toppings = request.POST.get('toppings')
         price = request.POST.get('price')
 
+        print("                      I am Here                 ")
+        print("")
+        print("///////////////////////////////")
+        print(user)
         #check if user has open order and get order number. If not create one
-        #"Checkout":Order2.objects.filter(user=request.user,number=order_number),
-        open_order = Orders_tracking.objects.all().get(user=user, status="open")
-        if not open_order:
+        try:
+            open_order = Orders_tracking.objects.all().get(user=user, status="open")
+            print("///////////////////////////////")
+
+            print(open_order)
+        except ObjectDoesNotExist:
             print("no open order, creating a new order number")
+            #create an open order and increase global order number by 1
             global_order_number = global_order_number + 1
             order_number = global_order_number
             entry = Orders_tracking(user=user, order_number=order_number, status="open")
             entry.save()
-        else:
-            order_number = open_order.order_number
-            print("got order number from open order")
+            print("///////////////////////////////")
+            print("///////////////////////////////")
+            print("No open orders, created one")
+
+
+
+        #get order number from open order
+        open_order = Orders_tracking.objects.all().get(user=user, status="open")
+        order_number = open_order.order_number
+        print("got order number from open order")
 
         entry=Orders_list(order_number=order_number, item=item, toppings_extras=toppings, price=price)
         entry.save()
-
 
         return HttpResponse()
 
