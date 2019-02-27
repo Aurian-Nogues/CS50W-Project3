@@ -26,7 +26,6 @@ def index(request):
 
 def home(request):
     context = {
-
     }
     return render(request, "orders/home.html", context)
 
@@ -114,7 +113,6 @@ def platters(request):
 def pizza_toppings(request,description, topping, price):
     Toppings = Topping.objects.all()
     
-
     #test topping allowance
     if topping == "Cheese":
         counter=0

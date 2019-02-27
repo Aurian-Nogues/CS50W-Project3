@@ -16,7 +16,6 @@
                 <tr>
                 <th scope="col">Salad</th>
                 <th scope="col">Price</th>
-                <th scope="col">Add</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,8 +23,7 @@
             {% for salad in Salads %}
                 <tr>
                 <td>{{salad.description}}</td>
-                <td>{{salad.price}}</td>
-                <td><button type="button" class="btn btn-success pizza-button">Add</button></td>
+                <td><a href="{% url 'add_pasta_salad' salad.description salad.price %}">{{salad.price}}</a></td>
                 </tr>
             {% endfor %}
             
