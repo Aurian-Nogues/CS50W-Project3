@@ -2,6 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub, Topping, Orders_list, Orders_tracking
 from.models import UserCreationForm
@@ -21,8 +22,15 @@ except IndexError:
 #///////////////////////////////////////////////////////////////////
 
 def index(request):
+    #if user not connected send to login page
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
+
+    #if user has staff status redirect to staff website
+    if request.user.is_staff:
+        return HttpResponseRedirect(reverse("staff_confirmed_orders"))
+        
+    #if user is a client redirect to normal website
     return HttpResponseRedirect(reverse("home"))
 
 def home(request):
@@ -327,7 +335,7 @@ def delete_item(request):
     else:
         raise Http404
 
-#Ajax request handler to remove items from basket
+#Ajax request handler to confirm order
 def confirm_order(request):
     if request.is_ajax() and request.POST:
         
@@ -338,10 +346,24 @@ def confirm_order(request):
             return render(request, "orders/error.html", {"message": "Order does not exist."})
 
         print(order)
-        order.status = "Confirmed"
+        order.status = "confirmed"
         order.save()
         print(order)
         return HttpResponse()
     
     else:
         raise Http404
+
+def staff_confirmed_orders(request):
+    orders = Orders_tracking.objects.all()
+    confirmed_orders = orders.filter(status="confirmed")
+
+    context ={"Orders": confirmed_orders,
+
+    }
+
+    return render(request, "orders/staff_confirmed_orders.html", context)
+
+def staff_all_orders(request):
+
+    return render(request, "orders/staff_all_orders.html")

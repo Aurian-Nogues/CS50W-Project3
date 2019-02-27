@@ -6,7 +6,7 @@
     {% endblock %}
 
 {% block body %}
-
+<div class="menu-table">
     <div id="registration">
 
         <form class="site-form" action="{% url 'create_account' %}" method="post">
@@ -19,6 +19,7 @@
         <input id="create-user-button" type='submit' value='Create account'>   
         </form>
     </div>
+</div>
 {% endblock %}
 
 

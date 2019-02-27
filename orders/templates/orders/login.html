@@ -6,23 +6,27 @@
     {% endblock %}
 
 {% block body %}
-    <h1>Login</h1>
+
+<div class="menu-table">
     {% if message %}
     <div>
         {{ message }}
     </div>
-{% endif %}
-<form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <input name="username" type="text"/>
-    <input name="password" type="password"/>
-    <input type="submit" value="Login"/>
+    {% endif %}
+    <form action="{% url 'login' %}" method="post" >
+        {% csrf_token %}
+        <input name="username" type="text"/>
+        <input name="password" type="password"/>
+        <input type="submit" value="Login"/>
+    
+        <br />
+    
+        <a href="{% url 'create_account' %}"> 
+                Create an account
+        </a>      
+  
+    </div>
 
-    <br />
-
-    <a href="{% url 'create_account' %}"> 
-            Create an account
-    </a>
 
 {% endblock %}
 

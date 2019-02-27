@@ -26,6 +26,8 @@ urlpatterns = [
     path("add_sub", views.add_sub, name="add_sub"),
     path("delete_item", views.delete_item, name="delete_item"),
     path("confirm_order", views.confirm_order, name="confirm_order"),
+    path("staff_confirmed_orders", views.staff_confirmed_orders, name="staff_confirmed_orders"),
+    path("staff_all_orders", views.staff_all_orders, name="staff_all_orders"),
 
 ]
 
