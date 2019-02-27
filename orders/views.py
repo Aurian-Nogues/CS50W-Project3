@@ -84,7 +84,6 @@ def subs_extras(request, description, size, price):
         "size": size,
         "price": price
     }
-
     return render(request, "orders/subs_extras.html", context)
 
 
@@ -209,3 +208,34 @@ def add_sub(request):
 
     else:
         raise Http404
+
+def add_pasta_salad(request, description, price):
+    #import global variable to get order number
+    global global_order_number
+
+    user=request.user
+    item = description
+
+    #check if user has open order and get order number. If not create one
+    try:
+        open_order = Orders_tracking.objects.all().get(user=user, status="open")
+    except ObjectDoesNotExist:
+        print("no open  for user, creating a new order number")
+        #create an open order and increase global order number by 1
+        global_order_number = global_order_number + 1
+        order_number = global_order_number
+        entry = Orders_tracking(user=user, order_number=order_number, status="open")
+        entry.save()
+
+    #get order number from open order
+    open_order = Orders_tracking.objects.all().get(user=user, status="open")
+    order_number = open_order.order_number
+    print("got order number from open order")
+
+    #add new order to order_list
+    entry=Orders_list(order_number=order_number, item=item, price=price)
+    entry.save()
+
+    context = {
+    }
+    return HttpResponseRedirect(reverse("home"))

@@ -19,6 +19,7 @@ urlpatterns = [
     path("platters", views.platters, name="platters"),
     path("toppings/<str:description>/<str:topping>/<str:price>", views.pizza_toppings, name="toppings"),
     path("subs_extras/<str:description>/<str:size>/<str:price>", views.subs_extras, name="subs_extras"),
+    path("add_pasta_salad/<str:description>/<str:price>", views.add_pasta_salad, name="add_pasta_salad"),
     path("add_pizza", views.add_pizza, name="add_pizza"),
     path("add_sub", views.add_sub, name="add_sub"),
 
