@@ -8,8 +8,12 @@ from django.urls import reverse
 
 # Create your views here.
 
-#setup order number counter
-#last_order = 
+#If thre are no orders, set first order_number to 0
+try:
+    last_order = Orders_tracking.objects.order_by('-id')[0]
+except IndexError:
+    print("order list is empty, first order number set to 0")
+    global_order_number = 0
 
 
 
@@ -122,8 +126,10 @@ def pizza_toppings(request,description, topping, price):
 
 #Ajax request handler to add pizza to basket
 def add_pizza(request):
+    global global_order_number
+
     if request.is_ajax() and request.POST:
-        data = {'message': "%s added" % request.POST.get('item')}
+        data = {'message': "Pizza added"}
 
         user=request.user
 
@@ -133,20 +139,22 @@ def add_pizza(request):
 
         #check if user has open order and get order number. If not create one
         #"Checkout":Order2.objects.filter(user=request.user,number=order_number),
-        order_number = Orders_tracking.objects.all().filter(user=user, status="open")
-        if not order_number:
-            print("no open order")
-        print(order_number)
+        open_order = Orders_tracking.objects.all().get(user=user, status="open")
+        if not open_order:
+            print("no open order, creating a new order number")
+            global_order_number = global_order_number + 1
+            order_number = global_order_number
+            entry = Orders_tracking(user=user, order_number=order_number, status="open")
+            entry.save()
+        else:
+            order_number = open_order.order_number
+            print("got order number from open order")
 
-        print(user)
-        print(item)
-        print(toppings)
-        print(price)
+        entry=Orders_list(order_number=order_number, item=item, toppings_extras=toppings, price=price)
+        entry.save()
 
 
-        return HttpResponse(json.dumps(data), content_type='application/json')
+        return HttpResponse()
 
     else:
         raise Http404
-
-

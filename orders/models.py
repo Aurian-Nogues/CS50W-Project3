@@ -76,11 +76,19 @@ class Orders_tracking(models.Model):
     order_number = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=15, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.user} / {self.order_number} / {self.status}"
+
+
+
 class Orders_list(models.Model):
     order_number = models.IntegerField(blank=True, null=True)
     item = models.CharField(max_length=75)
     toppings_extras = models.CharField(max_length=150, blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.order_number} / {self.item} / {self.toppings_extras} / {self.price}"
 
 
 
