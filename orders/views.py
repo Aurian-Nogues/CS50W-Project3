@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub, Topping
+from .models import Pasta, Standard_pizza, Sicilian_pizza, Salad, Platter, Sub, Topping, Orders_list, Orders_tracking
 from.models import UserCreationForm
 from django.urls import reverse
 
@@ -120,10 +120,28 @@ def add_pizza(request):
     if request.is_ajax() and request.POST:
         data = {'message': "%s added" % request.POST.get('item')}
 
+        user=request.user
+
+        item = request.POST.get('item')
+        toppings = request.POST.get('toppings')
+        price = request.POST.get('price')
+
+        #check if user has open order and get order number. If not create one
+        #"Checkout":Order2.objects.filter(user=request.user,number=order_number),
+        order_number = Orders_tracking.objects.all().filter(user=user, status="open")
+        if not order_number:
+            print("no open order")
+        print(order_number)
+
+        print(user)
+        print(item)
+        print(toppings)
+        print(price)
+
+
         return HttpResponse(json.dumps(data), content_type='application/json')
 
     else:
         raise Http404
-
 
 
