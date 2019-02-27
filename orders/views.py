@@ -8,6 +8,11 @@ from django.urls import reverse
 
 # Create your views here.
 
+#setup order number counter
+#last_order = 
+
+
+
 def index(request):
     if not request.user.is_authenticated:
         return render(request, "orders/login.html", {"message": None})
