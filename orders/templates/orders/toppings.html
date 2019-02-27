@@ -1,0 +1,57 @@
+{% extends "orders/base1.html" %}
+
+
+{% block title %}
+    Toppings
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="menu-table">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 id="pizza_type">{{description}}</h3>
+                    <h6 id="toppings_description">{{topping}}</h6>
+                    <h3>Price: </h3>
+                    <h6 id="pizza_price">{{price}}</h6>
+
+                    <button type="button" id="reset_toppings" class="btn btn-warning">Reset toppings</button>
+                    <button type="button" id="place_pizza_order" class="btn btn-primary disabled">Place order</button>
+                 </div>
+                <div class="col">
+                    <h3>Toppings selected:</h3>
+                    <h6 id="toppings_selected">None</h6>
+            
+                    <h3>Toppings left</h6><h6 id="toppings_counter">{{counter}}</h6>
+            </div>
+        </div>
+    </div>
+        </br>
+        <h2>Choose toppings</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Topping</th>
+                <th scope="col">Add</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for topping in Toppings %}
+                <tr>
+                <td>{{topping.topping}}</td>
+                <td><button type="button" class="btn btn-success topping-button">Add</button></td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+
+<!--Load page specific JavaScript --> 
+   {% load static %}
+    <script src="{% static 'orders/pizza.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "orders/base1.html" %}
+
+{% block title %}
+    Pizzas
+{% endblock %}
+
+
+{% block body %}
+    
+
+
+    <div class="menu-table">
+        <h1>Standard pizzas</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Toppings</th>
+                <th scope="col">Small</th>
+                <th scope="col">Large</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for pizza in Standard_pizzas %}
+                <tr>
+                <td>{{pizza.topping}}</td>
+                <td><a href="{% url 'toppings' pizza.description pizza.topping pizza.price_small %}">{{pizza.price_small}}</a></td>
+                <td><a href="{% url 'toppings' pizza.description pizza.topping pizza.price_large %}">{{pizza.price_large}}</a></td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+
+    <br/>
+
+
+            <h1>Sicilian pizzas</h1>
+            <table class="table table-hover" id ="Sicilian-pizzas-menu">
+                <thead>
+                    <tr>
+                    <th scope="col">Toppings</th>
+                    <th scope="col">Small</th>
+                    <th scope="col">Large</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                {% for pizza in Sicilian_pizzas %}
+                    <tr>
+                    <td>{{pizza.topping}}</td>
+                    <td><a href="{% url 'toppings' pizza.description pizza.topping pizza.price_small %}">{{pizza.price_small}}</a></td>
+                    <td><a href="{% url 'toppings' pizza.description pizza.topping pizza.price_large %}">{{pizza.price_large}}</a></td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+{% endblock %}

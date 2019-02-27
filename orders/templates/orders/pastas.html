@@ -1,0 +1,38 @@
+{% extends "orders/base1.html" %}
+
+{% block title %}
+    Pastas
+{% endblock %}
+
+
+{% block body %}
+    
+
+
+    <div class="menu-table">
+        <h1>Pastas</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Pasta</th>
+                <th scope="col">Price</th>
+                <th scope="col">Add</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for pasta in Pastas %}
+                <tr>
+                <td>{{pasta.description}}</td>
+                <td>{{pasta.price}}</td>
+                <td><button type="button" class="btn btn-success pizza-button">Add</button></td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}

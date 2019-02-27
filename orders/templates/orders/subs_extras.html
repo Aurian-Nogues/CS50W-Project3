@@ -1,0 +1,74 @@
+{% extends "orders/base1.html" %}
+
+
+{% block title %}
+    Subs extras
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="menu-table">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 id="sub_type">{{description}}</h3>
+
+                </br>
+                <button type="button" id="reset_extras" class="btn btn-warning">Reset extras</button>
+                    <button type="button" id="place_sub_order" class="btn btn-primary disabled">Place order</button>
+                 </div>
+                <div class="col">
+                    <h3>Price: </h3>
+                    <h6 id="pizza_price">{{price}}</h6>
+
+            </div>
+        </div>
+    </div>
+        </br>
+        <h2>Choose extras</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Extra</th>
+                <th scope="col">Price</th>
+                <th scope="col">Add</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mushrooms</td>
+                    <td>0.5</td>
+                    <td><button type="button" class="btn btn-success topping-button">Add</button></td>
+                </tr>
+                <tr class="steak">
+                    <td>Green Peppers</td>
+                    <td>0.5</td>
+                    <td><button type="button" class="btn btn-success topping-button">Add</button></td>
+                </tr>
+                <tr class="steak">
+                    <td >Onions</td>
+                    <td>0.5</td>
+                    <td><button type="button" class="btn btn-success topping-button">Add</button></td>
+                </tr>
+                <tr class="steak">
+                    <td>Extra Cheese</td>
+                    <td>0.5</td>
+                    <td><button type="button" class="btn btn-success topping-button">Add</button></td>
+                </tr>
+            
+
+
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+
+<!--Load page specific JavaScript --> 
+   {% load static %}
+    <script src="{% static 'orders/subs.js' %}"></script>
+
+{% endblock %}

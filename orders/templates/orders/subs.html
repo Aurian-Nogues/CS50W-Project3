@@ -1,0 +1,39 @@
+{% extends "orders/base1.html" %}
+
+{% block title %}
+    Subs
+{% endblock %}
+
+
+{% block body %}
+    
+
+
+    <div class="menu-table">
+        <h1>Subs</h1>
+        <h6>***: add to cart to add extra ingredients</h6>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Sub</th>
+                <th scope="col">Small</th>
+                <th scope="col">Large</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for sub in Subs %}
+                <tr>
+                <td>{{sub.description}}</td>
+                <td><a href="{% url 'subs_extras' sub.description sub.price_small %}">{{sub.price_small}}</a></td>
+                <td><a href="{% url 'subs_extras' sub.description sub.price_large %}">{{sub.price_large}}</a></td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
