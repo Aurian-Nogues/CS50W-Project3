@@ -1,0 +1,47 @@
+{% extends "orders/base_staff.html" %}
+
+{% block title %}
+    All orders
+{% endblock %}
+
+
+
+{% block body %}
+    
+
+
+    <div class="menu-table">
+            <h1>All orders</h1>
+            <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Order number</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Complete</th>
+                        <th scope="col">Confirm</th>
+                        <th scope="col">Cancel</th>
+    
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                    {% for order in Orders %}
+                        <tr>
+                        
+                        <td><a href="{% url 'staff_see_orders' order.order_number %}">{{order.order_number}}</a></td>
+                        <td><a href="{% url 'staff_see_orders' order.order_number %}">{{order.user}}</a></td>
+                        <td><a href="{% url 'staff_see_orders' order.order_number %}">{{order.status}}</a></td>
+                        <td><button id="complete_order" type="button" class="btn btn-success topping-button">Complete</button></td>
+                        <td><button id="confirm_order" type="button" class="btn btn-info topping-button">Confirm</button></td>
+                        <td><button id="cancel_order" type="button" class="btn btn-danger topping-button">Cancel</button></td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+                {% load static %}
+                <script src="{% static 'orders/staff_all_orders.js' %}"></script>
+
+
+{% endblock %}

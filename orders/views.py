@@ -363,17 +363,19 @@ def staff_confirmed_orders(request):
     return render(request, "orders/staff_confirmed_orders.html", context)
 
 def staff_all_orders(request):
+    orders = Orders_tracking.objects.all()
+    context ={"Orders": orders,
 
-    return render(request, "orders/staff_all_orders.html")
+    }
+
+    return render(request, "orders/staff_all_orders.html", context)
 
 #Ajax request handler to update order
 def update_order(request):
 
     if request.is_ajax() and request.POST:
-        print("///////////////////here//////////////////")
         order_number = request.POST.get('order')
         order_status = request.POST.get('status')
-        print(order_number)
 
         try:
             order = Orders_tracking.objects.all().get(order_number=order_number)
