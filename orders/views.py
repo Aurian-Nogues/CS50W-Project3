@@ -345,10 +345,8 @@ def confirm_order(request):
         except ObjectDoesNotExist:
             return render(request, "orders/error.html", {"message": "Order does not exist."})
 
-        print(order)
         order.status = "confirmed"
         order.save()
-        print(order)
         return HttpResponse()
     
     else:
@@ -367,3 +365,23 @@ def staff_confirmed_orders(request):
 def staff_all_orders(request):
 
     return render(request, "orders/staff_all_orders.html")
+
+#Ajax request handler to update order
+def update_order(request):
+
+    if request.is_ajax() and request.POST:
+        print("///////////////////here//////////////////")
+        order_number = request.POST.get('order')
+        order_status = request.POST.get('status')
+        try:
+            order = Orders_tracking.objects.all().get(order_number=order_number)
+        except ObjectDoesNotExist:
+            return render(request, "orders/error.html", {"message": "Order does not exist."})
+
+        order.status = order_status
+        order.save()
+
+        return HttpResponse()
+
+    else:
+        raise Http404
