@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     $(document).on("click","#complete_order",complete_order);
+    $(document).on("click","#cancel_order",cancel_order);
 
     
 
@@ -50,6 +51,27 @@ function complete_order(){
     order = $(a).closest('td').prev('td');
     order = order.text();
     status="completed"
+
+    //make ajax post request
+    $.ajax({
+        type: "POST",
+        url: "/update_order",
+        dataType: "json",
+        data: {"order": order, "status": status},
+    });
+    //reload page
+    location.reload();
+};
+
+function cancel_order(){
+    //define variables to be passed
+    a = $(this).closest('td').prev('td');
+    b = $(a).closest('td').prev('td');
+    c = $(b).closest('td').prev('td');
+    order = $(c).closest('td').prev('td');
+    order = order.text();
+    alert(order);
+    status="cancelled"
 
     //make ajax post request
     $.ajax({
