@@ -27,12 +27,12 @@ Open orders
     
                 {% for order in Orders %}
                     <tr>
-                    <td>{{order.order_number}}</td>
-                    <td>{{order.user}}</td>
-                    <td>{{order.status}}</td>
+                    
+                    <td><a href="{% url 'staff_see_orders' order.order_number %}">{{order.order_number}}</a></td>
+                    <td><a href="{% url 'staff_see_orders' order.order_number %}">{{order.user}}</a></td>
+                    <td><a href="{% url 'staff_see_orders' order.order_number %}">{{order.status}}</a></td>
                     <td><button id="complete_order" type="button" class="btn btn-success topping-button">Complete</button></td>
                     <td><button id="cancel_order" type="button" class="btn btn-danger topping-button">Cancel</button></td>
-
                     </tr>
                 {% endfor %}
                 

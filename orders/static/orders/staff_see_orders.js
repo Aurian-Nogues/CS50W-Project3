@@ -43,45 +43,36 @@ document.addEventListener('DOMContentLoaded', () => {
     /////////////////////////////////////////////////////////////////
     });
 
+    function complete_order(){
+        //define variables to be passed
 
-function complete_order(){
-    //define variables to be passed
-    price = $(this).closest('td').prev('td');
-    a = $(price).closest('td').prev('td');
-    order = $(a).closest('td').prev('td');
-    order = order.text();
-    status="completed"
-
-    //make ajax post request
-    $.ajax({
-        type: "POST",
-        url: "/update_order",
-        dataType: "json",
-        data: {"order": order, "status": status},
-    });
-    //reload page
-    location.reload();
-};
-
-function cancel_order(){
-    //define variables to be passed
-    a = $(this).closest('td').prev('td');
-    b = $(a).closest('td').prev('td');
-    c = $(b).closest('td').prev('td');
-    order = $(c).closest('td').prev('td');
-    order = order.text();
-    status="cancelled"
-
-    //make ajax post request
-    $.ajax({
-        type: "POST",
-        url: "/update_order",
-        dataType: "json",
-        data: {"order": order, "status": status},
-    });
-    //reload page
-    location.reload();
-};
-
-
-
+        order = document.querySelector('#order_number').innerHTML;
+        status="completed"
+    
+        //make ajax post request
+        $.ajax({
+            type: "POST",
+            url: "/update_order",
+            dataType: "json",
+            data: {"order": order, "status": status},
+        });
+        //reload page
+        window.location.pathname = 'staff_confirmed_orders';
+    };
+    
+    function cancel_order(){
+        //define variables to be passed
+        order = document.querySelector('#order_number').innerHTML;
+        status="cancelled"
+    
+        //make ajax post request
+        $.ajax({
+            type: "POST",
+            url: "/update_order",
+            dataType: "json",
+            data: {"order": order, "status": status},
+        });
+        //reload page
+        window.location.pathname = 'staff_confirmed_orders';
+    };
+    

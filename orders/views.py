@@ -373,6 +373,8 @@ def update_order(request):
         print("///////////////////here//////////////////")
         order_number = request.POST.get('order')
         order_status = request.POST.get('status')
+        print(order_number)
+
         try:
             order = Orders_tracking.objects.all().get(order_number=order_number)
         except ObjectDoesNotExist:
@@ -385,5 +387,15 @@ def update_order(request):
 
     else:
         raise Http404
+
+#function to let staff see order when clicking them
+def staff_see_orders(request, order_number):
+
+    order = Orders_list.objects.all().filter(order_number=order_number)
+    context = {"order": order,
+        "order_number": order_number,
+    }
+    return render(request, "orders/staff_see_orders.html", context)
+
 
     

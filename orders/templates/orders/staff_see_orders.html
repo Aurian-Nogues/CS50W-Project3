@@ -1,0 +1,44 @@
+{% extends "orders/base_staff.html" %}
+
+{% block title %}
+See order
+{% endblock %}
+
+
+
+{% block body %}
+    <div class="menu-table">
+        <h1>See order</h1>
+        <h3 id="order_number">{{order_number}}</h3>
+        <button id="complete_order" type="button" class="btn btn-success topping-button">Complete</button>
+            <button id="cancel_order" type="button" class="btn btn-danger topping-button">Cancel</button>
+    
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Extras/toppings</th>
+                <th scope="col">price</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for item in order %}
+                <tr>
+                <td>{{item.item}}</td>
+                <td>{{item.toppings_extras}}</td>
+                <td>{{item.price}}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+
+<!--Load page specific JavaScript --> 
+{% load static %}
+<script src="{% static 'orders/staff_see_orders.js' %}"></script>
+
+{% endblock %}
+
